@@ -91,7 +91,6 @@ class BaghaChal {
             this.placePiece("tiger", index);
             this.positions[index].occupied = "tiger";
         });
-        console.log("Initial tigers placed at:", this.tigers.map(t => t.index));
     }
 
     placePiece(type, index) {
@@ -138,7 +137,6 @@ class BaghaChal {
 
     handleClick(e) {
         const target = e.target;
-        console.log("Click target:", target);
 
         if (!target) return;
 
@@ -168,7 +166,6 @@ class BaghaChal {
 
     handleIntersectionClick(intersection) {
         const index = parseInt(intersection.dataset.index);
-        console.log(`Intersection clicked: ${index}`);
 
         if (this.phase === "placement" && this.turn === "goat") {
             if (!this.positions[index].occupied) {
@@ -199,7 +196,6 @@ class BaghaChal {
         }
 
         const pieceType = piece.classList[0];
-        console.log(`Piece clicked: ${pieceType} at index ${piece.dataset.index}`);
 
         // Check if it's the correct turn and piece type
         if ((pieceType === "tiger" && this.turn === "tiger") ||
@@ -221,12 +217,10 @@ class BaghaChal {
                 this.positions[index].element.style.backgroundColor = "#88ff88";
             });
 
-            console.log(`Selected ${pieceType} at ${piece.dataset.index}, Valid moves: ${this.validMoves}`);
         }
 
         // After showing valid moves, check if the piece has no moves
         if (this.validMoves.length === 0) {
-            console.log(`${pieceType} at ${piece.dataset.index} has no valid moves`);
             this.checkWinConditions();
         }
 
@@ -238,8 +232,7 @@ class BaghaChal {
         const currentIndex = parseInt(piece.dataset.index);
         const pieceType = piece.classList[0];
         this.validMoves = this.getValidMoves(currentIndex, pieceType);
-        console.log(
-            `Valid moves for ${pieceType} at ${currentIndex}: ${this.validMoves}`
+        `Valid moves for ${pieceType} at ${currentIndex}: ${this.validMoves}`
         );
 
         this.validMoves.forEach((index) => {
@@ -433,7 +426,6 @@ class BaghaChal {
             remainingElement.textContent = 20 - this.goats.length;
         }
 
-        console.log(`Stats updated - Captures: ${this.capturedGoats}, Remaining: ${20 - this.goats.length}`);
     }
 
     updateStatus() {
@@ -455,7 +447,6 @@ class BaghaChal {
         // Validate tiger positions first
         const actualTigers = Array.from(document.getElementsByClassName("tiger"))
             .map(t => parseInt(t.dataset.index));
-        console.log("Actual tiger positions:", actualTigers);
 
         // Update tigers array if needed
         this.tigers = actualTigers.map(index => ({
@@ -466,12 +457,10 @@ class BaghaChal {
         // Check if tigers are trapped
         const allTigersTrapped = this.tigers.every(tiger => {
             const validMoves = this.getValidMoves(tiger.index, "tiger");
-            console.log(`Tiger at ${tiger.index} has ${validMoves.length} valid moves`);
             return validMoves.length === 0;
         });
 
         if (allTigersTrapped) {
-            console.log("All tigers are trapped!");
             this.showMessage("Goats win! All tigers are trapped!");
             setTimeout(() => {
                 alert("Goats Win!");
@@ -517,10 +506,10 @@ class BaghaChal {
 
     // Add method to verify board state
     verifyBoardState() {
-        console.log("Current board state:");
-        console.log("Tigers:", this.tigers);
-        console.log("Goats:", this.goats);
-        console.log("Positions:", this.positions.map(p => p.occupied));
+        // console.log("Current board state:");
+        // console.log("Tigers:", this.tigers);
+        // console.log("Goats:", this.goats);
+        // console.log("Positions:", this.positions.map(p => p.occupied));
     }
 
     loadSounds() {
