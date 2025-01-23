@@ -232,8 +232,6 @@ class BaghaChal {
         const currentIndex = parseInt(piece.dataset.index);
         const pieceType = piece.classList[0];
         this.validMoves = this.getValidMoves(currentIndex, pieceType);
-        `Valid moves for ${pieceType} at ${currentIndex}: ${this.validMoves}`
-        );
 
         this.validMoves.forEach((index) => {
             this.positions[index].element.style.backgroundColor = "#88ff88";
