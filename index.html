@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Play Bagha Chal, a traditional Nepali board game also known as Tigers and Goats. A strategic two-player game where tigers try to capture goats while goats attempt to trap tigers."
+    />
+    <meta
+      name="keywords"
+      content="Bagha Chal, Nepali Game, Tiger and Goat game, Traditional Board Game, Nepal"
+    />
+    <meta name="author" content="Dinesh Chhantyal" />
+    <meta
+      property="og:title"
+      content="Bagha Chal - Traditional Nepali Board Game"
+    />
+    <meta
+      property="og:description"
+      content="Play the ancient Nepali board game of Tigers and Goats online"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://baghchal.dineshchhantyal.com" />
+    <title>Bagha Chal - Traditional Nepali Board Game | Play Online</title>
+
+    <link rel="canonical" href="https://baghchal.dineshchhantyal.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="static/tiger.png" type="image/x-icon" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Game",
+        "name": "Bagha Chal",
+        "description": "A traditional Nepali board game where tigers try to capture goats while goats attempt to trap tigers.",
+        "author": {
+          "@type": "Person",
+          "name": "Dinesh Chhantyal"
+        },
+        "genre": "Board Game",
+        "numberOfPlayers": "2",
+        "gameLocation": {
+          "@type": "Country",
+          "name": "Nepal"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="brand-header" role="banner">
+      <h1>Bagha Chal</h1>
+      <p>A Traditional Nepali Board Game</p>
+      <span class="author">by Dinesh Chhantyal</span>
+    </header>
+
+    <main class="container" role="main">
+      <aside class="game-info" role="complementary">
+        <h2>Game Rules</h2>
+        <ul aria-label="Game Rules">
+          <li>4 Tigers vs 20 Goats</li>
+          <li>Goats place first</li>
+          <li>Tigers can capture goats by jumping</li>
+          <li>Tigers win by capturing 5 goats</li>
+          <li>Goats win by trapping all tigers</li>
+        </ul>
+        <section class="stats" aria-label="Game Statistics">
+          <div class="score-box">
+            <h3>Tigers</h3>
+            <p>Captures: <span id="captures" aria-live="polite">0</span></p>
+          </div>
+          <div class="score-box">
+            <h3>Goats</h3>
+            <p>Remaining: <span id="remaining" aria-live="polite">20</span></p>
+          </div>
+        </section>
+      </aside>
+
+      <section class="board-container" aria-label="Game Board">
+        <div
+          id="status"
+          class="game-status"
+          role="status"
+          aria-live="polite"
+        ></div>
+        <div
+          class="board"
+          id="board"
+          role="grid"
+          aria-label="Bagha Chal Board"
+        ></div>
+        <button id="restart" class="restart-btn" aria-label="Start New Game">
+          New Game
+        </button>
+      </section>
+
+      <div
+        id="message"
+        class="message-box"
+        role="alert"
+        aria-live="assertive"
+      ></div>
+    </main>
+
+    <div class="loading-screen">
+      <div class="loading-content">
+        <h2>Loading Bagha Chal</h2>
+        <div class="spinner"></div>
+        <p>by Dinesh Chhantyal</p>
+      </div>
+    </div>
+
+    <audio id="moveSound" src="sounds/move.mp3" preload="auto"></audio>
+    <audio id="captureSound" src="sounds/capture.mp3" preload="auto"></audio>
+    <audio id="placeSound" src="sounds/place.mp3" preload="auto"></audio>
+    <audio id="winSound" src="sounds/win.mp3" preload="auto"></audio>
+    <audio id="selectSound" src="sounds/select.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+  </body>
+</html>

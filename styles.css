@@ -1,0 +1,347 @@
+:root {
+  --brand-color: rgb(254, 159, 43);
+  --brand-dark: #e07c00;
+  --brand-light: #fff6e9;
+  --text-dark: #2d2d2d;
+  --board-brown: #654321;
+  --board-size: min(90vmin, 500px);
+  --piece-size: calc(var(--board-size) * 0.1);
+  --intersection-size: calc(var(--board-size) * 0.024);
+  --spacing: calc(var(--board-size) * 0.2);
+  --grid-spacing: calc(var(--board-size) / 5);
+  --grid-unit: calc(var(--board-size) / 5);
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--brand-light);
+  margin: 0;
+  padding: 0;
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.brand-header {
+  background: var(--brand-color);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.brand-header h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+.author {
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.board-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.board {
+  background: linear-gradient(45deg, #543210, #654321);
+  width: var(--board-size);
+  height: var(--board-size);
+  position: relative;
+  border: calc(var(--board-size) * 0.016) solid var(--brand-color);
+  border-radius: calc(var(--board-size) * 0.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.grid-lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.intersection {
+  width: var(--intersection-size);
+  height: var(--intersection-size);
+  background: #654321;
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 1;
+  transition: all 0.3s;
+}
+
+.intersection:hover {
+  background: var(--brand-color);
+}
+
+.tiger,
+.goat {
+  width: var(--piece-size);
+  height: var(--piece-size);
+  border-radius: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  animation: pieceDrop 0.3s ease-out;
+}
+
+.tiger:hover,
+.goat:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 0 10px rgba(254, 159, 43, 0.5);
+  z-index: 20; /* Bring hovered piece to front */
+  animation: pieceHover 0.2s ease-out forwards;
+}
+
+.tiger img,
+.goat img {
+  width: calc(var(--piece-size) * 0.9);
+  height: calc(var(--piece-size) * 0.9);
+  object-fit: contain;
+  pointer-events: none; /* Ensure clicks pass through to container */
+}
+
+.selected {
+  transform: translate(-50%, -50%) scale(1.15);
+  box-shadow: 0 0 15px var(--brand-color);
+  z-index: 30; /* Selected piece always on top */
+  animation: highlight 1s infinite;
+}
+
+.game-status {
+  background: var(--brand-color);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.message-box {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--brand-color);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: none;
+  z-index: 1000;
+}
+
+.restart-btn {
+  background: var(--brand-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 20px;
+  transition: all 0.3s;
+}
+
+.restart-btn:hover {
+  background: var(--brand-dark);
+}
+
+/* Add animations */
+@keyframes pieceHover {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes pieceDrop {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes highlight {
+  0% {
+    box-shadow: 0 0 5px var(--brand-color);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--brand-color);
+  }
+  100% {
+    box-shadow: 0 0 5px var(--brand-color);
+  }
+}
+
+/* Add loading screen */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(254, 159, 43);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 0.5s;
+}
+
+.loading-content {
+  text-align: center;
+  color: white;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #fff;
+  border-top: 5px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-screen.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Mobile Responsiveness */
+@media (min-width: 768px) {
+  .container {
+    grid-template-columns: 300px 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    grid-template-columns: 300px 1fr 300px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .game-info {
+    order: 2;
+  }
+
+  .board-container {
+    order: 1;
+  }
+
+  .message-box {
+    order: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .brand-header h1 {
+    font-size: 2em;
+  }
+
+  .stats {
+    display: flex;
+    gap: 10px;
+  }
+
+  .score-box {
+    flex: 1;
+  }
+
+  .game-status {
+    font-size: 0.9em;
+  }
+
+  .intersection {
+    width: calc(var(--board-size) * 0.024);
+    height: calc(var(--board-size) * 0.024);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --board-size: 90vmin;
+  }
+
+  .container {
+    margin: 10px auto;
+    padding: 0 10px;
+  }
+
+  .brand-header {
+    padding: 1rem;
+  }
+
+  .brand-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .game-info ul {
+    padding-left: 20px;
+  }
+
+  .game-info li {
+    font-size: 0.9em;
+  }
+
+  .restart-btn {
+    width: 100%;
+  }
+
+  .intersection {
+    --intersection-size: calc(var(--board-size) * 0.03);
+  }
+}
